@@ -26,14 +26,14 @@ on:
       - master
 
 env:
-  DOCKER_IMAGE_NAME: {{user.login}}-azure-ttt # Must not exist as a package associated with a different repo!
+  DOCKER_IMAGE_NAME: USER-azure-ttt # Must not exist as a package associated with a different repo!
   IMAGE_REGISTRY_URL: docker.pkg.github.com
   #################################################
   ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+  AZURE_WEBAPP_NAME: USER-ttt-app
   #################################################
 
 jobs:
@@ -68,8 +68,8 @@ jobs:
       - name: create image and store in Packages
         uses: mattdavis0351/actions/docker-gpr@1.3.0
         with:
-          repo-token: {% raw %}${{secrets.GITHUB_TOKEN}}{% endraw %}
-          image-name: {% raw %}${{env.DOCKER_IMAGE_NAME}}{% endraw %}
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+          image-name: ${{env.DOCKER_IMAGE_NAME}}
 
   Deploy-to-Azure:
     runs-on: ubuntu-latest
@@ -79,23 +79,24 @@ jobs:
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
-          creds: {% raw %}${{ secrets.AZURE_CREDENTIALS }}{% endraw %}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - uses: azure/docker-login@v1
         with:
-          login-server: {% raw %}${{env.IMAGE_REGISTRY_URL}}{% endraw %}
-          username: {% raw %}${{ github.actor }}{% endraw %}
-          password: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          login-server: ${{env.IMAGE_REGISTRY_URL}}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy web app container
         uses: azure/webapps-deploy@v2
         with:
-          app-name: {% raw %}${{env.AZURE_WEBAPP_NAME}}{% endraw %}
-          images: {% raw %}${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}{% endraw %}
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          images: ${{env.IMAGE_REGISTRY_URL}}/${{ github.repository }}/${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
 
       - name: Azure logout
         run: |
           az logout
+
 ```
 
 ---

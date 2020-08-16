@@ -18,15 +18,14 @@ Let's create a new workflow that deals specifically with commits to master and h
 1. Add the same environment block as before:
     ```yaml
     env:
-      AZURE_RESOURCE_GROUP: cd-with-actions
-      AZURE_APP_PLAN: actions-ttt-deployment
-      AZURE_LOCATION: '"Central US"'
+      DOCKER_IMAGE_NAME: USER-azure-ttt
+      IMAGE_REGISTRY_URL: docker.pkg.github.com
       #################################################
       ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
       #################################################
       #################################################
       ### REPLACE USERNAME WITH GH USERNAME         ###
-      AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+      AZURE_WEBAPP_NAME: USER-ttt-app
       #################################################
     ```
 1. Commit your changes to this branch
@@ -42,15 +41,14 @@ on:
       - master
 
 env:
-  AZURE_RESOURCE_GROUP: cd-with-actions
-  AZURE_APP_PLAN: actions-ttt-deployment
-  AZURE_LOCATION: '"Central US"'
+  DOCKER_IMAGE_NAME: USER-azure-ttt
+  IMAGE_REGISTRY_URL: docker.pkg.github.com
   #################################################
   ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
+  AZURE_WEBAPP_NAME: USER-ttt-app
   #################################################
 ```
 

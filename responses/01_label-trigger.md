@@ -1,15 +1,12 @@
+
+
 # Welcome to the course!
 
-We'll learn how to create a workflow that enables Continuous Delivery. You'll:
+We'll learn how to create a workflow that enables Continuous Delivery with the help of Microsoft Azure. You'll:
 - create a workflow to deploy to staging based on a label
 - create a workflow to deploy to production based on merging to master
 
-Before you start, you should be familiar with GitHub and Continuous Integration. If you aren't sure where to start, you may want to check out these two Learning Lab courses:
-
-- [Introduction to GitHub](https://lab.github.com/githubtraining/introduction-to-github)
-- [Continuous Integration with GitHub Actions](https://lab.github.com/githubtraining/github-actions:-continuous-integration/)
-
-### What is Continuous Delivery?
+### A Reminder: What is Continuous Delivery?
 
 [Martin Fowler](https://martinfowler.com/bliki/ContinuousDelivery.html) defined Continuous Delivery very simply in a 2013 post as follows:
 
@@ -35,8 +32,25 @@ In a GitHub Actions workflow, the `on` step defines what causes the workflow to 
 ### :keyboard: Activity: Configure the workflow trigger based on a label being added
 
 1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/CHANGETHIS/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
+
 2. Change the name of the directory `CHANGETHIS` to `workflows`, so the title of this file with the path is `.github/workflows/deploy-staging.yml`. If you're working on the GitHub.com user interface, see the suggestion below for how to rename.
+
 3. Edit the contents of this file to trigger a job called `build` on a label
+
+4.  Add a block for environment variables before your jobs, as follows:
+
+   ```YML
+   env:
+     DOCKER_IMAGE_NAME: USER-azure-ttt
+     IMAGE_REGISTRY_URL: docker.pkg.github.com
+     #################################################
+     ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
+     #################################################
+     #################################################
+     ### REPLACE USERNAME WITH GH USERNAME         ###
+     AZURE_WEBAPP_NAME: USER-ttt-app
+     #################################################
+   ```
 
 <details><summary>Changing the name of a directory</summary>
 
@@ -56,6 +70,16 @@ on:
   pull_request:
     types: [labeled]
 
+env:
+  DOCKER_IMAGE_NAME: USER-azure-ttt
+  IMAGE_REGISTRY_URL: docker.pkg.github.com
+  #################################################
+  ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
+  #################################################
+  #################################################
+  ### REPLACE USERNAME WITH GH USERNAME         ###
+  AZURE_WEBAPP_NAME: USER-ttt-app
+  #################################################
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -1,6 +1,6 @@
 # Job conditionals
 
-GitHub Actions features powerful controls for when to execute jobs and the steps within them. One of these controls is `if`, which allows you run a job only when a specific condition is met. See [`jobs.<job_id>.if` in _Workflow syntax for GitHub Actions_](https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idif) for more information.
+GitHub Actions features powerful controls for when to execute jobs and the steps within them. One of these controls is if, which allows you to run a job only when a specific condition is met. See [jobs..if in *Workflow syntax for GitHub Actions*](https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idif) for more information.
 
 ### Using information within GitHub
 
@@ -18,20 +18,7 @@ Let's put all this together to run our job only when a labeled named "stage" is 
 
 ### :keyboard: Activity: Add a conditional to select from labels
 
-1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
-1. Edit the contents of the file to add a block for environment variables before your jobs, as follows.
-    ```yaml
-    env:
-      DOCKER_IMAGE_NAME: {{user.login}}-azure-ttt
-      IMAGE_REGISTRY_URL: docker.pkg.github.com
-      #################################################
-      ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
-      #################################################
-      #################################################
-      ### REPLACE USERNAME WITH GH USERNAME         ###
-      AZURE_WEBAPP_NAME: {{user.login}}-ttt-app
-      #################################################
-    ```
+1. Edit the `deploy-staging.yml` file on this branch, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)
 1. Edit the contents of the file to add a conditional that filters the `build` job using a label called "stage".
 
 Your results should look like this:
