@@ -20,18 +20,18 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
    
     > Note: You may need a credit card to create an Azure account. If you're a student, you may also be able to take advantage of the [Student Developer Pack](https://education.github.com/pack) for access to Azure. If you'd like to continue with the course without an Azure account, Learning Lab will still respond, but none of the deployments will work.
     
-1. Create a [new subscription](https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/create-subscription) in the Azure Portal. 
+2. Create a [new subscription](https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/create-subscription) in the Azure Portal. 
    
     > Note: your subscription must be configured "Pay as you go" which will require you to enter billing information. This course will only use a few minutes from your free plan, but Azure requires the billing information. 
     
-1. Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on your machine. 
+3. Install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) on your machine. 
 
-1. In your terminal, run:
+4. In your terminal, run:
     ```shell
     az login
     ```
     
-1. Copy the value of the `id:` field to a safe place. We'll call this `AZURE_SUBSCRIPTION_ID`. Here's an example of what it looks like:
+5. Copy the value of the `id:` field to a safe place. We'll call this `AZURE_SUBSCRIPTION_ID`. Here's an example of what it looks like:
     ```shell
     [
     {
@@ -49,7 +49,7 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
     ]
     ```
     
-1. In your terminal, run the command below. **Note: The `\` character works as a line break on Unix based systems.  If you are on a Windows based system the `\` character will cause this command to fail.  Place this command on a single line if you are using Windows.**
+6. In your terminal, run the command below. **Note: The `\` character works as a line break on Unix based systems.  If you are on a Windows based system the `\` character will cause this command to fail.  Place this command on a single line if you are using Windows.**
     ```shell
     az ad sp create-for-rbac --name "GitHub-Actions" --role contributor \
                               --scopes /subscriptions/{subscription-id} \
@@ -58,7 +58,7 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
     # Replace {subscription-id} with the same id stored in AZURE_SUBSCRIPTION_ID.
     ```
     
-1. Copy the entire contents of the command's response, we'll call this `AZURE_CREDENTIALS`. Here's an example of what it looks like:
+7. Copy the entire contents of the command's response, we'll call this `AZURE_CREDENTIALS`. Here's an example of what it looks like:
     ```shell
     {
       "clientId": "<GUID>",
@@ -69,25 +69,25 @@ The course [_Using GitHub Actions for CI_](https://lab.github.com/githubtraining
     } 
     ```
     
-1. Back on GitHub, click on this repository's **[Secrets]({{ repoUrl }}/settings/secrets)** in the Settings tab.
+8. Back on GitHub, click on this repository's **[Secrets]({{ repoUrl }}/settings/secrets)** in the Settings tab.
 
-1. Click **New secret**
+9. Click **New secret**
 
-1. Name your new secret **AZURE_SUBSCRIPTION_ID** and paste the value from the `id:` field in the first command.
+10. Name your new secret **AZURE_SUBSCRIPTION_ID** and paste the value from the `id:` field in the first command.
 
-1. Click **Add secret**.
+11. Click **Add secret**.
 
-1. Click **New secret** again.
+12. Click **New secret** again.
 
-1. Name the second secret **AZURE_CREDENTIALS** and paste the entire contents from the second terminal command you entered.
+13. Name the second secret **AZURE_CREDENTIALS** and paste the entire contents from the second terminal command you entered.
 
-1. Click **Add secret**
+14. Click **Add secret**
 
 ### :keyboard: Activity: Finish setting up your workflow
 
-1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use some new actions, or [use this quick link]({{ repoUrl }}/edit/staging-workflow/.github/workflows/deploy-staging.yml?) _(We recommend opening the quick link in another tab)_
+1. Back in this pull request, edit the `.github/workflows/deploy-staging.yml` file to use some new actions!
 
-2. Under the`build`job, use what you learned in lesson 2 to add steps that check out the repository, initialize and build the app using npm, and upload the build artifacts. 
+2. Under the `build` job, use what you learned in lesson 2 to add steps that check out the repository, initialize and build the app using npm, and upload the build artifacts. 
 
    <details><summary>The completed job should look something like this:</summary>
 
